@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
-const { getAllGames, singleGame, createGame } = require("../controllers/games");
+const { getAllGames, getSingleGame, createGame, deleteGame, updateGame } = require("../controllers/games");
 
-router.route("/games").get(getAllGames);
-router.route("/game").get(singleGame).post(createGame)
+router.route("/games").get(getAllGames).post(createGame)
+router.route("/game/:id").get(getSingleGame).put(updateGame).delete(deleteGame);
 
 module.exports = router;

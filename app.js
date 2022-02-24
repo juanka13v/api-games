@@ -8,11 +8,11 @@ const genderRouter = require('./routes/gender');
 const connectDB = require('./db/connect');
 
 // middlewares
-app.use(express.json());
+app.use(express.json())
 
 // routes
 app.use('/api/v1/', gamesRouter);
-app.use('/api/v1', genderRouter);
+app.use('/api/v1/', genderRouter);
 
 
 app.get('/', (req, res) => {
