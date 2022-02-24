@@ -1,11 +1,10 @@
 const Game = require("../models/Game");
+const {getGenderId} = require('../helpers/genderId');
 
 const getAllGames = async (req, res) => {
   try {
-    await Game.find().populate('gender').exec((err, games) => {
-      console.log(games);
-      res.status(200).json({ status: "success", data: games });
-    })
+    const games = await Game.find().populate('gender','name');
+    res.status(200).json({ status: "success", data: games });
       
   } catch (error) {
     res.status(500).json({ status: "error", message: "Ha ocurrido un error" });
@@ -19,7 +18,11 @@ const singleGame = async (req, res) => {
 const createGame = async (req, res) => {
   const { title, short_desc, gender } = req.body;
 
-  const newGame = new Game({ title, short_desc, gender });
+  const genderId = getGenderId(gender);
+
+  if(!genderId) return res.status(500).json({status: "error", message: "gender is not supported"})
+
+  const newGame = new Game({ title, short_desc, gender: genderId });
 
   try {
     const savedGame = await newGame.save();
