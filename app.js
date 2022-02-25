@@ -2,7 +2,6 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const gamesRouter = require('./routes/games');
-const genderRouter = require('./routes/gender');
 
 // connect to MongoDB
 const connectDB = require('./db/connect');
@@ -12,7 +11,6 @@ app.use(express.json())
 
 // routes
 app.use('/api/v1/', gamesRouter);
-app.use('/api/v1/', genderRouter);
 
 
 app.get('/', (req, res) => {
