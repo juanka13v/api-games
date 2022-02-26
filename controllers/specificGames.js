@@ -1,8 +1,8 @@
-const BasicGame = require("../models/BasicGame");
+const Game = require("../models/Game");
 
-const getAllGames = async (req, res) => {
+const getAllSpGames = async (req, res) => {
   try {
-    const games = await BasicGame.find();
+    const games = await Game.find();
     if(!games[0]) return res.status(404).json({status: "empty", message: "Empty collection"})
     res.status(200).json({ status: "success", data: games });
   } catch (error) {
@@ -10,10 +10,10 @@ const getAllGames = async (req, res) => {
   }
 };
 
-const getSingleGame = async (req, res) => {
+const getSingleSpGame = async (req, res) => {
   const { id } = req.params;
   try {
-    const singleGame = await BasicGame.findById(id);
+    const singleGame = await Game.findById(id);
     if (!singleGame)
       return res
         .status(404)
@@ -24,8 +24,8 @@ const getSingleGame = async (req, res) => {
   }
 };
 
-const createGame = async (req, res) => {
-  const newGame = new BasicGame(req.body);
+const createSpGame = async (req, res) => {
+  const newGame = new Game(req.body);
 
   try {
     const savedGame = await newGame.save();
@@ -39,10 +39,10 @@ const createGame = async (req, res) => {
   }
 };
 
-const deleteGame = async (req, res) => {
+const deleteSpGame = async (req, res) => {
   const { id } = req.params;
   try {
-    const deletedGame = await BasicGame.findByIdAndDelete(id);
+    const deletedGame = await Game.findByIdAndDelete(id);
     if(!deletedGame) return res.status(404).json({ status: "success", message: "Game not found" });
 
     res.status(203).json({ status: "success", message: "game eliminated" });
@@ -53,11 +53,11 @@ const deleteGame = async (req, res) => {
   }
 };
 
-const updateGame = async (req, res) => {
+const updateSpGame = async (req, res) => {
   const { id } = req.params;
   const update = req.body;
   try {
-    const updatedGame = await BasicGame.findByIdAndUpdate(id, update, {
+    const updatedGame = await Game.findByIdAndUpdate(id, update, {
       new: true,
     });
     res.status(203).json({ status: "success", data: updatedGame });
@@ -69,9 +69,9 @@ const updateGame = async (req, res) => {
 };
 
 module.exports = {
-  getAllGames,
-  getSingleGame,
-  createGame,
-  deleteGame,
-  updateGame,
+  getAllSpGames,
+  getSingleSpGame,
+  createSpGame,
+  deleteSpGame,
+  updateSpGame,
 };
