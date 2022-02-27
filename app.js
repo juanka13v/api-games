@@ -17,6 +17,11 @@ app.get('/', (req, res) => {
     res.send('<h1>Games api</h1>');
 })
 
+app.get('/params', (req, res) => {
+    console.log(req.query);
+    res.send('hola')
+})
+
 
 const port = process.env.PORT || 3000; 
 

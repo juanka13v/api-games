@@ -1,9 +1,30 @@
 const BasicGame = require("../models/BasicGame");
 
 const getAllGames = async (req, res) => {
+  const { genre, platform, date } = req.query;
+  const options = {};
+  if (genre) {
+    options.genre = genre;
+  }
+  if (platform) {
+    options.platform = platform;
+  }
+
+  if (date) {
+    options.release_date = {
+      $gte: `${date}-1-1`,
+      $lt: `${parseFloat(parseInt(date) + 1)}-1-1`,
+    };
+  }
+
+  console.log(options);
+
   try {
-    const games = await BasicGame.find();
-    if(!games[0]) return res.status(404).json({status: "empty", message: "Empty collection"})
+    const games = await BasicGame.find(options);
+    if (!games[0])
+      return res
+        .status(404)
+        .json({ status: "empty", message: "Empty collection" });
     res.status(200).json({ status: "success", data: games });
   } catch (error) {
     res.status(500).json({ status: "error", message: "Ha ocurrido un error" });
@@ -43,7 +64,10 @@ const deleteGame = async (req, res) => {
   const { id } = req.params;
   try {
     const deletedGame = await BasicGame.findByIdAndDelete(id);
-    if(!deletedGame) return res.status(404).json({ status: "success", message: "Game not found" });
+    if (!deletedGame)
+      return res
+        .status(404)
+        .json({ status: "success", message: "Game not found" });
 
     res.status(203).json({ status: "success", message: "game eliminated" });
   } catch (error) {
