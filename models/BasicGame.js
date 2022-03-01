@@ -1,7 +1,7 @@
-const req = require("express/lib/request");
 const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
 const { reqString } = require("../helpers/reqString");
+const { RequirementsSchema } = require("./Requirements");
 
 // saga
 // recomended
@@ -9,13 +9,14 @@ const { reqString } = require("../helpers/reqString");
 // plataforma
 // type [free-to-play, pay]
 // secuelas[dlc spancion]
+// date.slice(0,10)
 
 const BasicGameSchema = new Schema(
   {
     title: reqString("Title", { unique: true }),
+    thumbnail: reqString("Thumbnail"),
     short_description: reqString("Short description"),
-    // game url debe ser id y populate
-    game_url: reqString("Url", { unique: true }),
+    description: reqString("Description"),
     genre: reqString("Genre", {
       lowercase: true,
       enum: {
@@ -39,6 +40,8 @@ const BasicGameSchema = new Schema(
       }),
     ],
     developer: reqString("Developer", { lowercase: true }),
+    minimum_system_requirements: RequirementsSchema,
+    screenshots: [reqString("Image")],
   },
   { versionKey: false }
 );

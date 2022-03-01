@@ -1,8 +1,29 @@
 const BasicGame = require("../models/BasicGame");
 
+const getAllStaticsGames = async (req, res) => {
+  try {
+    const games = await BasicGame.find();
+    if (!games[0])
+      return res
+        .status(404)
+        .json({ status: "empty", message: "Empty collection" });
+    res.status(200).json({ status: "success", data: games });
+  } catch (error) {
+    res.status(500).json({ status: "error", message: "Ha ocurrido un error" });
+  }
+};
+
 const getAllGames = async (req, res) => {
-  const { genre, platform, date } = req.query;
+  const { genre, platform, date, page, limit } = req.query;
   const options = {};
+  const select = [
+    "title",
+    "genre",
+    "thumbnail",
+    "short_description",
+    "platform",
+  ];
+
   if (genre) {
     options.genre = genre;
   }
@@ -17,10 +38,11 @@ const getAllGames = async (req, res) => {
     };
   }
 
-  console.log(options);
-
   try {
-    const games = await BasicGame.find(options);
+    const games = await BasicGame.find(options)
+      .limit(limit)
+      .skip(page * limit)
+      .select(select);
     if (!games[0])
       return res
         .status(404)
@@ -98,4 +120,5 @@ module.exports = {
   createGame,
   deleteGame,
   updateGame,
+  getAllStaticsGames
 };
