@@ -3,7 +3,7 @@ const Franchise = require("../models/Franchise");
 const getAllFranchise = async (req, res) => {
 
   try {
-    const franchises = await Franchise.find().populate('franchise_games');
+    const franchises = await Franchise.find().populate('franchise_games', ['title', 'thumbnail', 'short_description']);
     if (!franchises[0])
       return res
         .status(404)

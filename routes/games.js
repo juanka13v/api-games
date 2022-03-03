@@ -24,5 +24,10 @@ router.route("/static/games").get(getAllStaticsGames);
 // Franchise
 
 router.route("/franchise").get(getAllFranchise).post(createFranchise);
+router
+  .route("/franchise/:id")
+  .get(getSingleFranchise)
+  .put(updateFranchise)
+  .delete(deleteFranchise);
 
 module.exports = router;
