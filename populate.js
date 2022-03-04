@@ -1,34 +1,9 @@
 const BasicGame = require("./models/BasicGame");
-const cloudinary = require("cloudinary").v2;
-const { dataBase } = require("./data");
+
 
 const createGames = async (obj) => {
   //let newObj = []
   obj.forEach(async (element) => {
-    try {
-      // Convert thumbnail to url
-      const result = await cloudinary.uploader.upload(element.thumbnail);
-      element.thumbnail = result.url;
-      console.log("thumbnail done");
-    } catch (error) {
-      console.log(error);
-    }
-
-    for (let i = 0; i < element.screenshots.length; i++) {
-      try {
-        // Convert imgs to url
-        const resultA = await cloudinary.uploader.upload(
-          element.screenshots[i]
-        );
-        element.screenshots[i] = resultA.url;
-        console.log(`image ${i} done`);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
-    // create model base
-
     const newGame = new BasicGame(element);
 
     try {
@@ -45,4 +20,29 @@ const createGames = async (obj) => {
   console.log(obj);
 };
 
-module.exports = createGames;
+const changeImages = async (id, imgs) => {
+  const thumbnail = imgs[0];
+  const newImgs = [];
+
+  for (let i = 1; i < imgs.length; i++) {
+    newImgs.push(imgs[i]);
+  }
+
+  try {
+    const updatedGame = await BasicGame.findByIdAndUpdate(
+      id,
+      { thumbnail, screenshots: newImgs },
+      {
+        new: true,
+      }
+    );
+    console.log("update imgs");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports = {createGames, changeImages};
+
+
+

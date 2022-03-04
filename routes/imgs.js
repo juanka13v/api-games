@@ -1,6 +1,7 @@
 const router = require("express").Router();
-const {createImg, getImage} = require("../controllers/imgs");
+const upload = require("../helpers/multer");
+const { createImg } = require("../controllers/imgs");
 
-router.route("/upload").post(createImg)
+router.route("/upload").post(upload.array("images"), createImg);
 
-module.exports = router
+module.exports = router;
