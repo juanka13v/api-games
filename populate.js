@@ -1,9 +1,7 @@
 const BasicGame = require("./models/BasicGame");
 
-
-const createGames = async (obj) => {
-  //let newObj = []
-  obj.forEach(async (element) => {
+const createGames = async (arr) => {
+  arr.forEach( async (element) => {
     const newGame = new BasicGame(element);
 
     try {
@@ -12,12 +10,7 @@ const createGames = async (obj) => {
     } catch (error) {
       console.log(error);
     }
-
-    //console.log(element)
-    //newObj.push(element)
   });
-
-  console.log(obj);
 };
 
 const changeImages = async (id, imgs) => {
@@ -42,7 +35,4 @@ const changeImages = async (id, imgs) => {
   }
 };
 
-module.exports = {createGames, changeImages};
-
-
-
+module.exports = { createGames, changeImages };

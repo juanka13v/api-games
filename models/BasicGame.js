@@ -19,10 +19,6 @@ const BasicGameSchema = new Schema(
     description: reqString("Description"),
     genre: reqString("Genre", {
       lowercase: true,
-      enum: {
-        values: ["rpg", "shooter", "mmorpg", "survival"],
-        message: "{VALUE} is not supported",
-      },
     }),
     publisher: reqString("Publisher", { lowercase: true }),
     release_date: {
@@ -33,12 +29,12 @@ const BasicGameSchema = new Schema(
     platform: [
       reqString("Platform", {
         lowercase: true,
-        enum: {
-          values: ["ps4", "pc", "xbox"],
-          message: "{VALUE} is not supported",
-        },
       }),
     ],
+    franchise: {
+      type: String,
+      default: "any"
+    },
     developer: reqString("Developer", { lowercase: true }),
     minimum_system_requirements: RequirementsSchema,
     screenshots: [reqString("Image")],
