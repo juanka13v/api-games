@@ -16,6 +16,10 @@ app.use(cors());
 app.use("/api/v1/", gamesRouter);
 app.use("/api/v1/img", imgsRouter);
 
+app.get("/", (req, res) => {
+  res.send("<h1>Api Games</h1>")
+})
+
 const port = process.env.PORT || 3000;
 
 const start = async () => {
