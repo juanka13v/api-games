@@ -1,4 +1,20 @@
 const BasicGame = require("../models/BasicGame");
+const { getRandomNumber } = require("../helpers/ramdon");
+
+const getRecommendationGames = async (req, res) => {
+  try {
+    const games = await BasicGame.find();
+    const newArray = [];
+
+    for (let i = 0; i < 3; i++) {
+      newArray.push(games[getRandomNumber(1, games.length)]);
+    }
+
+    res.status(200).json({ status: "success", data: newArray });
+  } catch (error) {
+    res.status(500).json({ status: "error", message: "Ha ocurrido un error" });
+  }
+};
 
 const getAllStaticsGames = async (req, res) => {
   try {
@@ -21,7 +37,7 @@ const getAllGames = async (req, res) => {
     "genre",
     "thumbnail",
     "short_description",
-    "platform"
+    "platform",
   ];
 
   if (genre) {
@@ -39,7 +55,7 @@ const getAllGames = async (req, res) => {
   }
 
   if (franchise) {
-    options.franchise = franchise
+    options.franchise = franchise;
   }
 
   try {
@@ -61,11 +77,23 @@ const getSingleGame = async (req, res) => {
   const { id } = req.params;
   try {
     const singleGame = await BasicGame.findById(id);
+    const recommendations = await BasicGame.find({ genre: singleGame.genre });
+
+    const newRecommendations = []
+    recommendations.forEach(item => {
+      if(item.title != singleGame.title) {
+        newRecommendations.push(item)
+      }
+    })
+
+
     if (!singleGame)
       return res
         .status(404)
         .json({ status: "error", message: "game not found" });
-    res.status(200).json({ status: "success", data: singleGame });
+    res
+      .status(200)
+      .json({ status: "success", data: singleGame, re: newRecommendations });
   } catch (error) {
     res.status(500).json({ status: "error", message: "game not found", error });
   }
@@ -88,7 +116,6 @@ const createGame = async (req, res) => {
       });
     }
   }
-
 };
 
 const deleteGame = async (req, res) => {
@@ -103,7 +130,7 @@ const deleteGame = async (req, res) => {
         return res
           .status(404)
           .json({ status: "success", message: "Game not found" });
-  
+
       res.status(203).json({ status: "success", message: "game eliminated" });
     } catch (error) {
       res
@@ -111,7 +138,6 @@ const deleteGame = async (req, res) => {
         .json({ status: "error", message: "error game not eliminated", error });
     }
   }
-
 };
 
 const updateGame = async (req, res) => {
@@ -132,7 +158,6 @@ const updateGame = async (req, res) => {
         .json({ status: "error", message: "error game not updated", error });
     }
   }
-
 };
 
 module.exports = {
@@ -142,4 +167,5 @@ module.exports = {
   deleteGame,
   updateGame,
   getAllStaticsGames,
+  getRecommendationGames,
 };
