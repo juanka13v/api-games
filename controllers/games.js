@@ -4,13 +4,20 @@ const { getRandomNumber } = require("../helpers/ramdon");
 const getRecommendationGames = async (req, res) => {
   try {
     const games = await BasicGame.find();
-    const newArray = [];
+    const numArray = [];
+    const gamesArray = [];
 
-    for (let i = 0; i < 3; i++) {
-      newArray.push(games[getRandomNumber(1, games.length)]);
+    for (let i = 0; i < 4; i++) {
+      let item = getRandomNumber(1, games.length);
+      if (numArray.includes(item)) {
+        i--;
+      } else {
+        numArray.push(item)
+        gamesArray.push(games[item]);
+      }
     }
 
-    res.status(200).json({ status: "success", data: newArray });
+    res.status(200).json({ status: "success", data: gamesArray });
   } catch (error) {
     res.status(500).json({ status: "error", message: "Ha ocurrido un error" });
   }
@@ -79,13 +86,12 @@ const getSingleGame = async (req, res) => {
     const singleGame = await BasicGame.findById(id);
     const recommendations = await BasicGame.find({ genre: singleGame.genre });
 
-    const newRecommendations = []
-    recommendations.forEach(item => {
-      if(item.title != singleGame.title) {
-        newRecommendations.push(item)
+    const newRecommendations = [];
+    recommendations.forEach((item) => {
+      if (item.title != singleGame.title) {
+        newRecommendations.push(item);
       }
-    })
-
+    });
 
     if (!singleGame)
       return res
