@@ -3,13 +3,6 @@ const { Schema, model } = mongoose;
 const { reqString } = require("../helpers/reqString");
 const { RequirementsSchema } = require("./Requirements");
 
-// saga
-// recomended
-// puntaje
-// plataforma
-// type [free-to-play, pay]
-// secuelas[dlc spancion]
-// date.slice(0,10)
 
 const BasicGameSchema = new Schema(
   {

@@ -37,7 +37,7 @@ const getAllStaticsGames = async (req, res) => {
 };
 
 const getAllGames = async (req, res) => {
-  const { genre, platform, date, page, limit, franchise } = req.query;
+  const { genre, platform, page, limit, franchise } = req.query;
   const options = {};
   const select = [
     "title",
@@ -52,13 +52,6 @@ const getAllGames = async (req, res) => {
   }
   if (platform) {
     options.platform = platform;
-  }
-
-  if (date) {
-    options.release_date = {
-      $gte: `${date}-1-1`,
-      $lt: `${parseFloat(parseInt(date) + 1)}-1-1`,
-    };
   }
 
   if (franchise) {

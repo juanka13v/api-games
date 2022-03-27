@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="css/main.css" />
+    <title>Api Games</title>
+  </head>
+  <body>
+    <header class="header">
+      <div class="title">
+        <h1>
+          <i class="fa-solid fa-gamepad"></i>
+          Api Games
+        </h1>
+      </div>
+
+      <ul class="menu">
+        <li class="item"><a href="#">Inicio</a></li>
+        <li class="item"><a href="#">Endpoints</a></li>
+        <li class="item"><a href="#">Examples</a></li>
+      </ul>
+    </header>
+
+    <main class="main">
+      <div class="content">
+        <h2 class="text-title">REST</h2>
+        <p class="text-simple">
+          Base URL:
+          <span class="string">
+            <a href="https://api-games-ar.herokuapp.com/api/v1"
+              >https://api-games-ar.herokuapp.com/api/v1</a
+            >
+          </span>
+        </p>
+        <p class="text-simple">
+          All requests are <span class="code">GET</span> requests and go over
+          http. All responses will return data in json.
+        </p>
+
+        <p class="text-simple">
+          you can access the list of games by using the
+          <span class="code">/games</span> endpoint.
+        </p>
+      </div>
+      <pre class="code-container">
+  <code>
+    <span class="get">GET</span> "https://api-games-ar.herokuapp.com/api/v1/games"
+  </code>
+      </pre>
+      <p class="text-simple m2">
+        if the response is correct <span class="code">status</span> will be
+        <span class="property">"success"</span>, and it will return the games in
+        <span class="property">"data"</span> into an array.
+      </p>
+      <pre class="code-container">
+        <code>
+    <span class="punctuation">{</span>
+      <span class="property">"status"</span><span class="operator">:</span> <span class="string">"success"</span>,
+      <span class="property">"data"</span><span class="operator">:</span>[...] <span class="comment">//games</span>
+    <span class="punctuation">}</span>
+        </code>
+      </pre>
+      <p class="text-simple m2">
+        if the response is bad, the <span class="code">status</span> will be
+        <span class="property">"error"</span>, and will return a
+        <span class="property">"message"</span> with the error into an object.
+      </p>
+      <pre class="code-container">
+        <code>
+    <span class="punctuation">{</span>
+      <span class="property">"status"</span><span class="operator">:</span> <span class="string">"error"</span>,
+      <span class="property">"message"</span><span class="operator">:</span>{...} <span class="comment">//error</span>
+    <span class="punctuation">}</span>
+        </code>
+      </pre>
+    </main>
+
+    <section class="games-schema container">
+      <h2 class="text-title">Game Schema</h2>
+      <p class="text-simple m2">
+        You can get a single game by adding the id as a parameter:
+        <span class="code">/game/6227cc0737934d26dc331503</span>
+      </p>
+
+      <pre class="code-container">
+  <code>
+    {
+      <span class="property">"_id"</span><span class="operator">:</span> <span class="string">"6227cc0737934d26dc331503"</span>,
+      <span class="property">"title"</span><span class="operator">:</span> <span class="string">"Hollow Knight"</span>,
+      <span class="property">"thumbnail"</span><span class="operator">:</span> <span class="string">"http://res.cloudinary.com/df0mkte1v/image/upload/v1646840087/if4ymopz9xlauybo3kq9.jpg"</span>,
+      <span class="property">"short_description"</span><span class="operator">:</span> <span class="string">"Forge your own path in Hollow Knight! An epic action adventure through a vast ruined kingdom of insects and heroes. Explore twisting caverns, battle tainted creatures and befriend bizarre bugs, all in a classic, hand-drawn 2D style."</span>,
+      <span class="property">"description"</span><span class="operator">:</span> <span class="string">"Forge your own path in Hollow Knight! An epic action adventure through a vast ruined kingdom of insects and heroes. Explore twisting caverns, battle tainted creatures and befriend bizarre bugs, all in a classic, hand-drawn 2D style."</span>,
+      <span class="property">"genre"</span><span class="operator">:</span> <span class="string">"metroidvania"</span>,
+      <span class="property">"publisher"</span><span class="operator">:</span> <span class="string">"team cherry"</span>,
+      <span class="property">"release_date"</span><span class="operator">:</span> <span class="string">"2017-02-24T03:00:00.000Z"</span>,
+      <span class="property">"platform"</span><span class="operator">:</span> [
+        <span class="string">"pc"</span>,
+        <span class="string">"switch"</span>,
+        <span class="string">"ps4"</span>,
+        <span class="string">"xbox one"</span>
+      ],
+      <span class="property">"franchise"</span><span class="operator">:</span> <span class="string">"any"</span>,
+      <span class="property">"developer"</span><span class="operator">:</span> <span class="string">"team cherry"</span>,
+      <span class="property">"minimum_system_requirements"</span><span class="operator">:</span> {
+        <span class="property">"os"</span><span class="operator">:</span> <span class="string">"Windows 7 (64bit)"</span>,
+        <span class="property">"processor"</span><span class="operator">:</span> <span class="string">"Intel Core 2 Duo E5200"</span>,
+        <span class="property">"graphics"</span><span class="operator">:</span> <span class="string">"GeForce 9800GTX"</span>,
+        <span class="property">"storage"</span><span class="operator">:</span> <span class="string">"9 GB"</span>,
+      },
+      <span class="property">"screenshots"</span><span class="operator">:</span> [
+        <span class="string">"http://res.cloudinary.com/df0mkte1v/image/upload/v1646840089/vzlrhowxe1r1f5dq1b45.jpg"</span>,
+        <span class="string">"http://res.cloudinary.com/df0mkte1v/image/upload/v1646840091/yvfyvit4xq1xadcg89uz.jpg"</span>,
+        <span class="string">"http://res.cloudinary.com/df0mkte1v/image/upload/v1646840092/unagdhk2i2hkneqdsaen.jpg"</span>
+      ]
+    }
+  </code>
+      </pre>
+
+      <table class="table">
+        <thead class="t-head">
+          <tr>
+            <th>Key</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>_id</td>
+            <td>string</td>
+            <td>The id of the game.</td>
+          </tr>
+          <tr>
+            <td>title</td>
+            <td>string</td>
+            <td>The name of the game.</td>
+          </tr>
+          <tr>
+            <td>thumbnail</td>
+            <td>string(URL)</td>
+            <td>Link to the game's thumbnail.</td>
+          </tr>
+          <tr>
+            <td>short_description</td>
+            <td>string</td>
+            <td>Short description of the game.</td>
+          </tr>
+          <tr>
+            <td>description</td>
+            <td>string</td>
+            <td>Description of the game.</td>
+          </tr>
+          <tr>
+            <td>genre</td>
+            <td>string</td>
+            <td>The genre of the game.</td>
+          </tr>
+          <tr>
+            <td>release_date</td>
+            <td>string(date)</td>
+            <td>The release date of the game</td>
+          </tr>
+          <tr>
+            <td>platform</td>
+            <td>Array</td>
+            <td>The platforms of the game.</td>
+          </tr>
+          <tr>
+            <td>franchise</td>
+            <td>string</td>
+            <td>The franchise of the game. If it does not belong to a franchise it will return "any"</td>
+          </tr>
+          <tr>
+            <td>publisher</td>
+            <td>string</td>
+            <td>The publisher of the game.</td>
+          </tr>
+          <tr>
+            <td>developer</td>
+            <td>string</td>
+            <td>The developer of the game.</td>
+          </tr>
+          <tr>
+            <td>minimum_system_requirements</td>
+            <td>object</td>
+            <td>The "os", "processor", "graphics" and "storage" of the game</td>
+          </tr>
+          <tr>
+            <td>screenshots</td>
+            <td>Array (URL)</td>
+            <td>Links to images of the game</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </body>
+</html>
