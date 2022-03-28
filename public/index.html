@@ -22,12 +22,6 @@
           Api Games
         </h1>
       </div>
-
-      <ul class="menu">
-        <li class="item"><a href="#">Inicio</a></li>
-        <li class="item"><a href="#">Endpoints</a></li>
-        <li class="item"><a href="#">Examples</a></li>
-      </ul>
     </header>
 
     <main class="main">
@@ -150,7 +144,7 @@
             <td>Link to the game's thumbnail.</td>
           </tr>
           <tr>
-            <td>short_description</td>
+            <td>short description</td>
             <td>string</td>
             <td>Short description of the game.</td>
           </tr>
@@ -190,7 +184,7 @@
             <td>The developer of the game.</td>
           </tr>
           <tr>
-            <td>minimum_system_requirements</td>
+            <td>minimum system requirements</td>
             <td>object</td>
             <td>The "os", "processor", "graphics" and "storage" of the game</td>
           </tr>
@@ -201,6 +195,19 @@
           </tr>
         </tbody>
       </table>
+    </section>
+
+    <section class="container">
+      <h2 class="text-title">Filters Games</h2>
+      <p class="text-simple m2">You can also include filters in the URL by including additional query parameters. To start filtering add a <span class="code">?</span> followed by the query <span class="code">&lt;query&gt;=&lt;value&gt;</span>. If you want to chain several queries in the same call, use <span class="code">&</span> followed by the query.</p>
+      <p class="text-simple m2">For example, if you want to filter by genre, just add <span class="code">?genre=shooter</span> to the URL.</p>
+
+      <p class="text-simple w2">Available parameters:</p>
+      <ul class="list">
+        <li class="text-simple"><span class="code">genre</span>: filter by the genre.</li>
+        <li class="text-simple"><span class="code">platform</span>: filter by the platform</li>
+        <li class="text-simple"><span class="code">franchise</span>: filter by the franchise</li>
+      </ul>
     </section>
   </body>
 </html>

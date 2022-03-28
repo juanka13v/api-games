@@ -44,10 +44,10 @@ a {
   color: inherit;
 }
 
-ul,
+/* ul,
 li {
   list-style: none;
-}
+} */
 
 .get {
   color: var(--get);
@@ -86,7 +86,7 @@ li {
 .header {
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
 }
 
@@ -94,26 +94,6 @@ li {
   padding: 1rem;
 }
 
-.menu {
-  display: flex;
-  padding: 1rem;
-}
-
-.menu li {
-  font-size: 1.2rem;
-  margin-left: 2rem;
-  color: var(--text-color-2);
-}
-
-.menu li a:hover {
-  border-bottom: var(--bg-color-4) 4px solid;
-}
-
-@media screen and (max-width: 700px) {
-  .header {
-    flex-direction: column;
-  }
-}
 
 /*----- Components ------*/
 
@@ -171,35 +151,36 @@ li {
 }
 
 .table {
-  margin-left: 0;
-  margin-right: 0;
-  margin-top: 0;
-  padding-bottom: 0;
-  padding-left: 0;
-  padding-right: 0;
-  padding-top: 0;
-  margin-bottom: 3.25rem;
-  font-size: 1rem;
-  line-height: 1.625rem;
-  border-collapse: collapse;
+  margin-top: 2rem;
   width: 100%;
+  border-collapse: collapse;
+  color: var(--int);
 }
 
-.t-head {
-  text-align: left;
+.table .t-head {
+  color: var(--property);
+  background-color: var(--bg-color-3);
 }
 
-td, th {
-  color: var(--comment);
-  width: fit-content;
+.table td, 
+.table th {
+  padding: .7rem;
+}
+
+.table th {
+  font-weight: bolder;
   text-align: left;
-  border-bottom: 1px solid var(--text-color-2);
-  font-feature-settings: "tnum";
-  -moz-font-feature-settings: "tnum";
-  -ms-font-feature-settings: "tnum";
-  -webkit-font-feature-settings: "tnum";
-  padding-left: 1.08333rem;
-  padding-right: 1.08333rem;
-  padding-top: 0.8125rem;
-  padding-bottom: calc(0.8125rem - 1px);
+  border-bottom: 1px solid var(--bg-color-2);
+}
+
+.table td {
+  border-bottom: 1px solid var(--bg-color-1);
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: var(--background);
+}
+
+.list {
+  margin-left: 2rem;
 }
