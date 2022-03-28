@@ -4,11 +4,13 @@ const cors = require("cors");
 const app = express();
 const gamesRouter = require("./routes/games");
 const imgsRouter = require("./routes/imgs");
+const path = require('path');
 
 // connect to MongoDB
 const connectDB = require("./db/connect");
 
 // middlewares
+app.use(express.static(path.join(__dirname,'/public')));
 app.use(express.json());
 app.use(cors());
 
@@ -17,7 +19,7 @@ app.use("/api/v1/", gamesRouter);
 app.use("/api/v1/img", imgsRouter);
 
 app.get("/", (req, res) => {
-  res.send("<h1>Api Games</h1>")
+  res.sendFile(path.join(__dirname, '/index.html'))
 })
 
 const port = process.env.PORT || 3000;
